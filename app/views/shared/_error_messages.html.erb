@@ -1,0 +1,16 @@
+<!-- any는 있는가? 라는 질문임 empty와 반대의 이미 True, False 값을 돌려주기 위함 -->
+<% if @user.errors.any? %>
+  <div id="error_explanation">
+    <div class="alert alert-danger">
+      <!-- pluralize는 영어 텍스트를 보여주기 위함. 단수,복수형에 맞춰서 영어를 바꿔줌.
+      count가 있으니 갯수에 따라 복수인지 단수인지 알수있음. 예를 들면
+      helper.pluralize(2, "woman")의 경우 => "2 women" 으로 출력됨 -->
+      The form contains <%= pluralize(@user.errors.count, "error") %>.
+    </div>
+    <ul>
+      <% @user.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
