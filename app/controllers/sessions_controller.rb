@@ -5,10 +5,9 @@ class SessionsController < ApplicationController
 
   def create
     user = User.find_by(email: params[:session][:email].downcase)
-    # 논리곱 AND연산자 && 둘다 트루일때 트루값 나옴.
     if user && user.authenticate(params[:session][:password])
       log_in user
-      remember　user
+      remember user
       redirect_to user
     else
       flash.now[:danger] = 'Invalid email/password combination'
