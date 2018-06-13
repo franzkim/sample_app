@@ -12,6 +12,11 @@ module SessionsHelper
     cookies.permanent[:remember_token] = user.remember_token
   end
 
+  # 전달된 유저가 로그인 된 유저라면 True를 반환
+  def current_user?(user)
+    user == current_user
+  end
+
   # 현재 로그인중인 사용자를 반환 (있는 경우)
   def current_user
     if (user_id = session[:user_id])
@@ -42,4 +47,16 @@ module SessionsHelper
     session.delete(:user_id)
     @current_user = nil
   end
+
+  # 記憶したURL (もしくはデフォルト値) にリダイレクト
+  def redirect_back_or(default)
+    redirect_to(session[:forwarding_url] || default)
+    session.delete(:forwarding_url)
+  end
+
+  # アクセスしようとしたURLを覚えておく
+  def store_location
+    session[:forwarding_url] = request.original_url if request.get?
+  end
+
 end
