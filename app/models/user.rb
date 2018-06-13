@@ -29,6 +29,7 @@ class User < ApplicationRecord
 
   # 전달된 토큰이 다이제스트와 일치하면 트루값을 반환
   def authenticated?(remember_token)
+    return false if remember_digest.nil?
     BCrypt::Password.new(remember_digest).is_password?(remember_token)
   end
 
