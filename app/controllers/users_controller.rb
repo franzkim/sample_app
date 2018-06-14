@@ -10,6 +10,7 @@ class UsersController < ApplicationController
   def show
     # User.find(1)과 같은 의미임. find는 정수로 알아서 표현됨.
     @user = User.find(params[:id])
+    @microposts = @user.microposts.paginate(page: params[:page])
   end
 
   def new

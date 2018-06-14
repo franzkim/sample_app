@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  # 유저는 여러개의 포스트를 가질수 있다. 1 대 다
+  has_many :microposts, dependent: :destroy
   attr_accessor :remember_token, :activation_token, :reset_token
   before_save :downcase_email
   before_create :create_activation_digest
