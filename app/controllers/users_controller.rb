@@ -49,18 +49,11 @@ class UsersController < ApplicationController
   end
 
   private
+
     def user_params
       params.require(:user).permit(:name, :email, :password,
                                :password_confirmation)
     end
-
-  def logged_in_user
-    unless logged_in?
-      store_location
-      flash[:danger] = "Please log in"
-      redirect_to login_url
-    end
-  end
 
   # 올바른 사용자인지 아닌지 확인하는 메소드
   def correct_user
