@@ -61,6 +61,11 @@ class User < ApplicationRecord
     UserMailer.password_reset(self).deliver_now
   end
 
+  # 패스워드 재설정의 기한시간이 끝난 경우 트루값을 반환
+  def password_reset_expired?
+    reset_sent_at < 2.hours.ago
+  end
+
   private
 
   # メールアドレスをすべて小文字にする
